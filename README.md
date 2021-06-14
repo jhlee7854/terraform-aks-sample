@@ -27,8 +27,6 @@ aks_subnet_address_prefixes = [
 # AKS Variables
 ssh_public_key = "~/.ssh/id_rsa.pub"
 aks_kubernetes_version = "1.19.9"
-aks_max_count = 9
-aks_min_count = 1
 aks_node_count = 3
 aks_vm_size = "Standard_D2_v2"
 log_analytics_workspace_sku = "PerGB2018"
