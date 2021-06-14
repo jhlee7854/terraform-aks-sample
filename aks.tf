@@ -29,24 +29,20 @@ resource "azurerm_role_assignment" "aks_routetable_role_assignment" {
   ]
 }
 
-resource "azurerm_role_assignment" "aks_acr_role_assignment" {
+resource "azurerm_role_assignment" "aks_node_acr_role_assignment" {
   scope                = azurerm_container_registry.acr.id
   role_definition_name = "acrpull"
-  principal_id         = azurerm_user_assigned_identity.aks_uai.principal_id
+  principal_id         = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
 
   depends_on = [
     azurerm_container_registry.acr,
-    azurerm_user_assigned_identity.aks_uai
+    azurerm_kubernetes_cluster.aks
   ]
-}
-
-resource "random_id" "log_analytics_workspace_name_suffix" {
-    byte_length = 8
 }
 
 resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
     # The WorkSpace name has to be unique across the whole of azure, not just the current subscription/tenant.
-    name                = "${module.const.service_name}-${module.const.environment}-log-analytics-workspace-${random_id.log_analytics_workspace_name_suffix.dec}"
+    name                = "${module.const.service_name}-${module.const.environment}-log-analytics-workspace-13073224101972686559"
     location            = module.const.location
     resource_group_name = azurerm_resource_group.rg.name
     sku                 = var.log_analytics_workspace_sku
@@ -77,12 +73,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   default_node_pool {
     name                = "default"
-    max_count           = var.aks_max_count
-    min_count           = var.aks_min_count
     node_count          = var.aks_node_count
     vm_size             = var.aks_vm_size
     vnet_subnet_id      = azurerm_subnet.aks_subnet.id
-    enable_auto_scaling = true
+    enable_auto_scaling = false
     tags                = module.const.tags
   }
 
@@ -126,7 +120,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   depends_on = [
     azurerm_role_assignment.aks_subnet_role_assignment,
-    azurerm_role_assignment.aks_routetable_role_assignment,
-    azurerm_role_assignment.aks_acr_role_assignment
+    azurerm_role_assignment.aks_routetable_role_assignment
   ]
 }
