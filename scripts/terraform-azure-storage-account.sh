@@ -1,7 +1,7 @@
 #!/bin/bash
 
 RESOURCE_GROUP_NAME=terraform-state-demo-rg
-STORAGE_ACCOUNT_NAME=tstatedemo
+STORAGE_ACCOUNT_NAME=tstate1307322
 CONTAINER_NAME=tstate
 
 # Create resource group
