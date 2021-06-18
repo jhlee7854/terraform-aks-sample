@@ -61,8 +61,6 @@ resource "azurerm_log_analytics_solution" "log_analytics_solution" {
         publisher = "Microsoft"
         product   = "OMSGallery/ContainerInsights"
     }
-
-    tags = module.const.tags
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
