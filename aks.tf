@@ -46,8 +46,6 @@ resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
     location            = module.const.location
     resource_group_name = azurerm_resource_group.rg.name
     sku                 = var.log_analytics_workspace_sku
-
-    tags = module.const.tags
 }
 
 resource "azurerm_log_analytics_solution" "log_analytics_solution" {
