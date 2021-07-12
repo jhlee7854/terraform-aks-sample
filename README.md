@@ -42,6 +42,8 @@ terraform graph
 
 위 커맨드를 이용하여 다음과 같이 시각화 도구와 연동하여 그래프가 시각적으로 표현된 이미지를 얻을 수 있다.
 
+> 다음 커맨드는 그래프 시각화 도구를 사용하고 있으므로 그래프 시각화 도구의 설치가 필요하다. 해당 내용은 References의 링크를 확인한다.
+
 ```shell
 terraform graph | dot -Tsvg > graph.svg
 ```
@@ -51,3 +53,5 @@ terraform graph | dot -Tsvg > graph.svg
 [https://terraform.io](https://terraform.io)
 
 [Tutorial: Azure Storage에 Terraform 상태 저장하기](https://docs.microsoft.com/en-us/azure/developer/terraform/store-state-in-azure-storage)
+
+[그래프 시각화 도구 Graphviz](https://graphviz.org)
